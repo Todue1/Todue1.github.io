@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <title>W3.CSS Template</title>
+<meta name="google-signin-scope" content="profile email">
+  <meta name="google-signin-client_id" content="520562189168-e32u9im5doik435p4gnos9upkr2dl21g.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="style.css">
@@ -40,8 +43,10 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
 <!-- Header -->
 <header class="w3-container w3-red w3-center" style="padding:128px 16px">
-  <h1 class="w3-margin w3-jumbo">START PAGE</h1>
-  <p class="w3-xlarge">Template by w3.css</p>
+  <h1 class="w3-margin w3-jumbo">Welcome ToDue</h1>
+
+  <p class="w3-xlarge">ToDue is the world's premier homework reminder site.</p>
+  <!-- Google sign in script -->
   <div class="g-signin2" style="display:inline-block;" data-onsuccess="onSignIn" data-theme="dark"></div>
       <script>
         function onSignIn(googleUser) {
@@ -59,18 +64,19 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
           console.log("ID Token: " + id_token);
         };
       </script>
+
+  <input type="file" accept="image/*" capture="camera" id="photo">
+  <image id="image" height="200"></image>
 </header>
 
 <!-- First Grid -->
 <div class="w3-row-padding w3-padding-64 w3-container">
   <div class="w3-content">
     <div class="w3-twothird">
-      <h1>Lorem Ipsum</h1>
-      <h5 class="w3-padding-32">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h5>
+      <h1>Meet the Developers</h1>
+      <h5 class="w3-padding-32">We're mad dope.</h5>
 
-      <p class="w3-text-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <p class="w3-text-grey">Contact us on Facebook.</p>
     </div>
 
     <div class="w3-third w3-center">
@@ -87,12 +93,10 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
     </div>
 
     <div class="w3-twothird">
-      <h1>Lorem Ipsum</h1>
-      <h5 class="w3-padding-32">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h5>
+      <h1>Contact Us!</h1>
+      <h5 class="w3-padding-32">Office hours on Tuesday.</h5>
 
-      <p class="w3-text-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <p class="w3-text-grey">Download ToDue on your iPhone!</p>
     </div>
   </div>
 </div>
