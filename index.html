@@ -3,15 +3,16 @@
   <link rel="stylesheet" href="style.css">
   <meta charset="utf-8" />
 
-   <!-- G Sign in meta -->
+   <!-- G Sign in meta
   <script src="script.js"></script>
   <meta name="google-signin-scope" content="profile email">
-    <meta name="google-signin-client_id" content="520562189168-e32u9im5doik435p4gnos9upkr2dl21g.apps.googleusercontent.com">
+    <meta name="google-signin-client_id" content="728776177826-4c6t2jlofltmdf16djphk7gjmk4jfki0.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
+-->
   </head>
 
 <body>
-  <!-- Google sign in script -->
+  <!-- Google sign in script
   <div id="my-signin2"></div>
   <script>
     function onSuccess(googleUser) {
@@ -34,6 +35,7 @@
   </script>
 
   <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+-->
   <h1>Welcome ToDue</h1>
   <p> ToDue is the world's premier homework reminder site. </p>
 
@@ -49,8 +51,8 @@
 
     <script type="text/javascript">
       // Client ID and API key from the Developer Console
-      var CLIENT_ID = '624019328189-h4bt3cviba5fvp0ik6auj9ja0msrdacp.apps.googleusercontent.com';
-      var API_KEY = 'SfHknXvv7znEezMAuNFjUvvy';
+      var CLIENT_ID = '728776177826-4c6t2jlofltmdf16djphk7gjmk4jfki0.apps.googleusercontent.com';
+      var API_KEY = 'AIzaSyAoZ39jxGVGgwru-Kmak4ZF9nt4J0lnMYQ';
 
       // Array of API discovery doc URLs for APIs used by the quickstart
       var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
@@ -75,8 +77,8 @@
        */
       function initClient() {
         gapi.client.init({
-          apiKey: 'SfHknXvv7znEezMAuNFjUvvy',
-          clientId: '624019328189-h4bt3cviba5fvp0ik6auj9ja0msrdacp.apps.googleusercontent.com',
+          apiKey: API_KEY,
+          clientId: CLIENT_ID,
           discoveryDocs: DISCOVERY_DOCS,
           scope: SCOPES
         }).then(function () {
