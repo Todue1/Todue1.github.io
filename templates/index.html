@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<title>ToDue Home</title>
+<meta name="google-signin-scope" content="profile email">
+  <script src="https://apis.google.com/js/platform.js?onload=start" async defer></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+  function start() {
+    gapi.load('auth2', function() {
+      auth2 = gapi.auth2.init({
+        client_id: '907446991357-o57v2h2eo5ciso51slrnud4e8up2i2jj.apps.googleusercontent.com',
+        // Scopes to request in addition to 'profile' and 'email'
+        //scope: 'additional_scope'
+      });
+    });
+  }
+
+  function sortTable(n) {
+    var t, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    console.log("SORT");
+    t = document.getElementById("res");
+    switching = true;
+    // Set the sorting direction to ascending:
+    dir = "asc";
+    /* Make a loop that will continue until
+    no switching has been done: */
+    while (switching) {
+      // Start by saying: no switching is done:
+      switching = false;
+      rows = t.rows;
+      /* Loop through all table rows (except the
+      first, which contains table headers): */
+      for (i = 2; i < (rows.length - 1); i++) {
+        // Start by saying there should be no switching:
+        shouldSwitch = false;
+        /* Get the two elements you want to compare,
+        one from current row and one from the next: */
+        x = rows[i].getElementsByTagName("td")[n];
+        y = rows[i + 1].getElementsByTagName("td")[n];
+        console.log(x + "\t" + y + "\t" + n);
+        console.log(rows[i].getElementsByTagName('td'));
+        /* Check if the two rows should switch place,
+        based on the direction, asc or desc: */
+        if (dir == "asc") {
+          if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+            // If so, mark as a switch and break the loop:
+            shouldSwitch = true;
+            break;
+          }
+        } else if (dir == "desc") {
+          if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+            // If so, mark as a switch and break the loop:
+            shouldSwitch = true;
+            break;
+          }
+        }
+      }
+      if (shouldSwitch) {
+        /* If a switch has been marked, make the switch
+        and mark that a switch has been done: */
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        switching = true;
+        // Each time a switch is done, increase this count by 1:
+        switchcount ++;
+      } else {
+        /* If no switching has been done AND the direction is "asc",
+        set the direction to "desc" and run the while loop again. */
+        if (switchcount == 0 && dir == "asc") {
+          dir = "desc";
+          switching = true;
+        }
+      }
+    }
+  }
+
+</script>
+<script type="text/javascript">
+// setup some JSON to use
+
+window.onload = function(){
+  var firstAdded = true;
+  var cameraInput = document.getElementById("photo");
+  var table = document.getElementById("res");
+
+  function getPicture() {
+    var image = cameraInput.files[0];
+    var reader = new FileReader();
+
+    if(!image.type.startsWith("image")) {
+      alert("must be image");
+      return;
+    }
+
+    reader.addEventListener("load", function() {
+      var result = reader.result;
+      doWork(result);
+    }, false);
+
+    reader.readAsDataURL(image);
+  }
+
+  cameraInput.addEventListener("change", function(event){
+    getPicture();
+  });
+
+  function addAssignment(a) {
+    if(firstAdded){
+      firstAdded = false;
+      table.innerHTML += "<tr>";
+      var row = document.createElement('tr');
+      var labels = ['Date', 'Assignment', 'Class']
+      for(var i=0;i<3;i++) {
+        console.log(i);
+        var head = document.createElement('th');
+        if(i == 0) {
+          head.onclick = function(){sortTable(0)};
+        } else if(i == 1) {
+          head.onclick = function(){sortTable(1)};
+        } else if(i == 2) {
+          head.onclick = function(){sortTable(2)};
+        }
+        head.innerHTML = labels[i];
+        row.appendChild(head);
+      }
+      table.appendChild(row);
+    }
+    var row = document.createElement('tr');
+    var arr = a;
+    for(var i=0;i<arr.length;i++) {
+      var ele = document.createElement('td');
+      ele.classList.add('editable');
+      ele.innerHTML = arr[i];
+      row.appendChild(ele);
+    }
+    table.append(row);
+    for(var i=0;i<document.getElementsByClassName('editable').length; i++) {
+      document.getElementsByClassName('editable')[i].addEventListener('click', edit);
+    }
+  }
+
+  function doWork(d) {
+  	// ajax the JSON to the server
+    var response = $.ajax({type:'POST',
+            url:"/receiver",
+            dataType: 'json',
+            data: JSON.stringify(d),
+            success: function(back) {
+              console.log("Success");
+              addAssignment(back.responseText.split("___"));
+            },
+            error: function(fail) {
+              console.log("FAIL");
+              addAssignment(fail.responseText.split("___"));
+            }
+          });
+  	// stop link reloading the page
+   event.preventDefault();
+  }
+
+  function edit() {
+    var newText = prompt("Enter the corrected data");
+    if(newText == '')return;
+    this.innerHTML = newText;
+  }
+}
+
+</script>
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.bgimg {
+    background-image: url('https://i.imgur.com/CpacW0m.jpg');
+    max-width: 100%;
+    background-position: center;
+    background-size: cover;
+}
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
+</style>
+<meta name="google-signin-scope" content="profile email">
+  <meta name="google-signin-client_id" content="520562189168-e32u9im5doik435p4gnos9upkr2dl21g.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-black w3-card w3-left-align w3-large">
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="startpage.html" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
+    <a href="calendar.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-black">My ToDue</a>
+  </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+    <a href="calendar.html" class="w3-bar-item w3-button w3-black w3-padding-large">My ToDue</a>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="w3-container w3-blue-gray w3-center" style="padding:128px 16px">
+  <h1 class="w3-margin w3-jumbo">Welcome ToDue</h1>
+
+  <p id="thetitle" class="w3-xlarge">ToDue is the world's premier homework reminder site.</p>
+  <!-- Google sign in script -->
+  <button id="signInButton">Sign In With Google</button>
+  <script>
+    document.getElementById("signInButton").addEventListener("mousedown", function(e){
+      auth2.grantOfflineAccess().then(signInCallback);
+    });
+
+    function signInCallback(authResult) {
+      if (authResult['code']) {
+        // Send the code to the server
+        $.ajax({
+          type: 'POST',
+          url: '/receiver',
+          // Always include an `X-Requested-With` header in every AJAX request,
+          // to protect against CSRF attacks.
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+          },
+          contentType: 'application/octet-stream; charset=utf-8',
+          success: function(result) {
+            // Handle or verify the server response.
+          },
+          processData: false,
+          data: JSON.stringify(authResult['code']),
+          success: function(d){
+            var button = document.getElementById("signInButton");
+            var new_element = document.createElement("p");
+            new_element.innerHTML = "Logged in as " + d;
+            document.getElementById("thetitle").appendChild(new_element);
+            button.parentNode.removeChild(button);
+          }
+        });
+      } else {
+        // There was an error.
+      }
+    }
+  </script>
+  <br>
+  <p> Take a picture of your assignment! Make sure that the top of your page looks like the following. </p>
+  <image src = 'https://i.imgur.com/SlwLocF.png' alt "Paper" style="max-width:20%;min-width:300px;", align = "middle">
+<br><br>
+  <input type="file" accept="image/*" capture="camera" id="photo">
+  <p>Click on the column headers to sort your assignments by assignment name, subject, or due date. If you want to modify your assignment information, just click on the field and make your change.</p>
+  <table id="res" style="width:80%;"></table>
+</header>
+
+<div class="w3-row-padding w3-padding-64 w3-container" style="color: black;">
+  <div class="w3-content">
+    <div class="w3-twothird">
+      <h1>Meet the Developers</h1>
+      <!-- <h5 class="w3-padding-32">Neha Kota.</h5> -->
+      <div class="row">
+  <div class="column">
+    <div class="card">
+      <img src='https://i.imgur.com/jPndqqV.png' alt="Calvin" style="width:100%", align="middle">
+      <div class="container">
+        <h2>Calvin Godfrey</h2>
+        <p>I'm a freshman from Virginia Tech.</p>
+        <p>cgodfrey18@vt.edu</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="card">
+      <img src='https://i.imgur.com/fIAQrd1.png' alt="Tanisha" style="width:100%", align="middle">
+      <div class="container">
+        <h2>Tanisha Nalavadi </h2>
+        <p>I'm a sophomore at Duke, from Mumbai, India, studying CS and Statistics.</p>
+        <p>tanisha.nalavadi@gmail.com</p>
+
+
+
+  <div class="column">
+    <div class="card">
+      <img src='https://i.imgur.com/hwCUd0N.jpg' alt="Neha" style="width:100%", align="middle">
+      <div class="container">
+        <h2>Neha Kota</h2>
+        <p>I'm a sophomore at Duke, studying CS.</p>
+        <p>	nehakota20@gmail.com</p>
+
+      </div>
+    </div>
+  </div>
+  <div class="column">
+    <div class="card">
+      <img src='https://i.imgur.com/aNyneK3.jpg' alt="Jeffrey" style="width:100%", align="middle">
+      <div class="container">
+        <h2>Jeffrey Gu</h2>
+        <p>I'm a junior at Duke.</p>
+        <p>jeffrey.gu@duke.edu</p>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="card">
+      <img src='https://i.imgur.com/W2zLIKV.jpg' alt="Evelyn" style="width:100%", align="middle">
+      <div class="container">
+        <h2>Evelyn Putri</h2>
+        <p>I'm a sophomore at Duke.</p>
+        <p>evelyn2putri@gmail.com</p>
+
+      </div>
+    </div>
+  </div>
+</div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<!-- Second Grid -->
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+  <div class="w3-content">
+    <div class="w3-third w3-center">
+      <i class="fa w3-padding-64 w3-text-red w3-margin-right"><img src="https://i.imgur.com/Yc7FRtD.png" alt="Logo" style="width:106%;" align="middle"/></i>
+    </div>
+
+    <div class="max_width:1000px w3-center w3-twothird">
+      <h1>Check out our social media!</h1>
+      <h5 class="w3-padding-32"></h5>
+      <!-- Footer -->
+      <!-- <footer class="w3-container w3-padding-64 w3-center w3-opacity"> -->
+        <div class="form1">
+          <a href="https://www.facebook.com/groups/558651131001969/" title ="FB page"><i class="fa fa-facebook-official w3-center w3-jumbo w3-hover-opacity"></i>
+          <a href="https://www.instagram.com/jeffrey__gu/" title="Jeff's Insta"><i class="fa fa-instagram w3-center w3-jumbo w3-hover-opacity"></i>
+          <a href="https://www.linkedin.com/in/jeffrey-gu-a986a8133/" title="LinkMe"><i class="fa fa-linkedin w3-center w3-jumbo w3-hover-opacity"></i>
+       </div>
+
+      <!-- </footer> -->
+    </div>
+  </div>
+</div>
+
+<div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
+    <h1 class="w3-margin w3-xlarge">Quote of the day: Forget the miles, remember the smiles</h1>
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 w3-center w3-opacity">
+ <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+</footer>
+
+<script>
+// Used to toggle the menu on small screens when clicking on the menu button
+function myFunction() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+</script>
+
+</body>
+</html>
