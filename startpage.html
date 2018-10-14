@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
-<title>W3.CSS Template</title>
+<title>ToDue Home</title>
 <meta name="google-signin-scope" content="profile email">
   <meta name="google-signin-client_id" content="520562189168-e32u9im5doik435p4gnos9upkr2dl21g.apps.googleusercontent.com">
   <script src="https://apis.google.com/js/platform.js" async defer></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
@@ -15,43 +16,38 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
 .fa-anchor,.fa-coffee {font-size:200px}
 </style>
+<meta name="google-signin-scope" content="profile email">
+  <meta name="google-signin-client_id" content="520562189168-e32u9im5doik435p4gnos9upkr2dl21g.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
 <body>
 
 <!-- Navbar -->
 <div class="w3-top">
-  <div class="w3-bar w3-red w3-card w3-left-align w3-large">
+  <div class="w3-bar w3-black w3-card w3-left-align w3-large">
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Link 1</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Link 2</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Link 3</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Link 4</a>
+    <a href="startpage.html" class="w3-bar-item w3-button w3-padding-large w3-black">Home</a>
+    <a href="calendar.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-white">My Calendar</a>
+  <!--  <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-white">Link 2</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-white">Link 3</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-white">Link 4</a> -->
   </div>
 
   <!-- Navbar on small screens -->
   <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 1</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">MyCalendar</a>
+    <!--<a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
     <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 4</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 4</a> -->
   </div>
 </div>
 
 <!-- Header -->
-<header class="w3-container w3-red w3-center" style="padding:128px 16px">
-  <h1 class="w3-margin w3-jumbo">Welcome ToDue</h1>
+<header class="w3-container w3-blue-gray w3-center" style="padding:128px 16px">
+  <h1 class="w3-margin w3-jumbo">Welcome to ToDue</h1>
 
-  <p class="w3-xlarge">ToDue is the world's premier homework reminder site.</p>
+  <p class="w3-xlarge">The world's premier homework reminder site.</p>
   <!-- Google sign in script -->
-
-  <button class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Sign in to Google</button>
-
-
-  <meta name="google-signin-scope" content="profile email">
-    <meta name="google-signin-client_id" content="520562189168-e32u9im5doik435p4gnos9upkr2dl21g.apps.googleusercontent.com">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-
-  <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+  <div class="g-signin2" style="display:inline-block;" data-onsuccess="onSignIn" data-theme="dark"></div>
       <script>
         function onSignIn(googleUser) {
           // Useful data for your client-side scripts:
@@ -68,7 +64,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
           console.log("ID Token: " + id_token);
         };
       </script>
-
+<br>
   <input type="file" accept="image/*" capture="camera" id="photo">
   <image id="image" height="200"></image>
 </header>
@@ -78,13 +74,25 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
   <div class="w3-content">
     <div class="w3-twothird">
       <h1>Meet the Developers</h1>
-      <h5 class="w3-padding-32">We're mad dope.</h5>
+      <!-- <h5 class="w3-padding-32">Neha Kota.</h5> -->
+      <h4>Calvin Godfrey</h4>
+
+      <h4>Jeffrey Gu</h4>
+      <img src="jeffrey.jpg" alt="Jeffrey Gu" style = "width:372px;height:280px;">
+
+      <h4>Neha Kota</h4>
+      <img src="neha.jpg" alt="Neha Kota" style = "width:200px;height:300.8px;">
+
+      <h4>Tanisha Nalavadi</h4>
+      <img src="tanisha.png" alt="Tanisha Nalavadi" style = "width:280px;height:287px;">
+
+      <h4>Evelyn Putri</h4>
 
       <p class="w3-text-grey">Contact us on Facebook.</p>
     </div>
 
-    <div class="w3-third w3-center">
-      <i class="fa fa-anchor w3-padding-64 w3-text-red"></i>
+    <!--<div class="w3-third w3-center">
+      <i class="fa fa-anchor w3-padding-64 w3-text-red"></i> -->
     </div>
   </div>
 </div>
