@@ -108,6 +108,14 @@ def worker():
         print(credentials.id_token['email'])
         return credentials.id_token['email']
 
+        '''store = oauth2client.file.Storage('credentials.json')
+        creds = store.get()
+        if not creds or creds.invalid:
+            print("BAD")
+        service  '''
+
+        # 907446991357-1ic9h7aan2gghuuhgj5fq79imujt1jea.apps.googleusercontent.com
+
 
 if __name__ == '__main__':
 	# run!
