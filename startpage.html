@@ -22,7 +22,7 @@
     background-position: center;
     background-size: cover;
 }
-  
+
 div.form1 {
   max-width: 200px;
   margin: auto;
@@ -31,6 +31,25 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
 
 .fa-anchor,.fa-coffee {font-size:200px}
+.button {
+    background-color: #C3B3B3;
+    border: none;
+    padding: 5px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.button4 {border-radius: 12px;}
+.button4:hover {background-color: #120101;}
+.button4:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
 </style>
 <meta name="google-signin-scope" content="profile email">
   <meta name="google-signin-client_id" content="520562189168-e32u9im5doik435p4gnos9upkr2dl21g.apps.googleusercontent.com">
@@ -41,8 +60,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <div class="w3-top">
   <div class="w3-bar w3-black w3-card w3-left-align w3-large">
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-    <a href="startpage.html" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
-    <a href="calendar.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-black">My ToDue</a>
+    <a href="index.html" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
+    <a href="startpage.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-black">My ToDue</a>
   <!--  <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-white">Link 2</a>
     <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-white">Link 3</a>
     <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-white">Link 4</a> -->
@@ -50,7 +69,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 
   <!-- Navbar on small screens -->
   <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
-    <a href="calendar.html" class="w3-bar-item w3-button w3-black w3-padding-large">My ToDue</a>
+    <a href="startpage.html" class="w3-bar-item w3-button w3-black w3-padding-large">My ToDue</a>
     <!--<a href="#" class="w3-bar-item w3-button w3-padding-large">Link 2</a>
     <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 3</a>
     <a href="#" class="w3-bar-item w3-button w3-padding-large">Link 4</a> -->
@@ -149,7 +168,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
         <h2>Evelyn Putri</h2>
         <p>I'm a sophomore at Duke.</p>
         <p>evelyn2putri@gmail.com</p>
-
+<br>
+<br>
+<br>
       </div>
     </div>
   </div>
@@ -168,7 +189,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
   <div class="w3-content">
     <div class="w3-third w3-center">
-      <i class="fa fa-coffee w3-padding-64 w3-text-red w3-margin-right"></i>
+      <i class="w3-padding-64 w3-text-red w3-margin-right"><img src=logo.jpg alt="Logo" style="width:106%" align:"middle"></i>
     </div>
 
     <div class="max_width:1000px w3-center w3-twothird">
@@ -190,8 +211,9 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
     <h1 class="w3-margin w3-xlarge">Quote of the day: Forget the miles, remember the smiles</h1>
 </div>
-
-
+<div class="w3-center">
+<a href="/index.html"><button class="button button4">Back to Home</a>
+</div>
 
 <script>
 // Used to toggle the menu on small screens when clicking on the menu button
