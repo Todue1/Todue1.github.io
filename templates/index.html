@@ -2,11 +2,22 @@
 <html>
 <title>ToDue Home</title>
 <meta name="google-signin-scope" content="profile email">
-  <meta name="google-signin-client_id" content="520562189168-e32u9im5doik435p4gnos9upkr2dl21g.apps.googleusercontent.com">
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <!-- <meta name="google-signin-client_id" content="520562189168-e32u9im5doik435p4gnos9upkr2dl21g.apps.googleusercontent.com"> -->
+  <script src="https://apis.google.com/js/platform.js?onload=start" async defer></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+  function start() {
+    gapi.load('auth2', function() {
+      auth2 = gapi.auth2.init({
+        client_id: '907446991357-o57v2h2eo5ciso51slrnud4e8up2i2jj.apps.googleusercontent.com',
+        // Scopes to request in addition to 'profile' and 'email'
+        //scope: 'additional_scope'
+      });
+    });
+  }
+</script>
 <script type="text/javascript">
 // setup some JSON to use
 
@@ -120,8 +131,45 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <header class="w3-container w3-blue-gray w3-center" style="padding:128px 16px">
   <h1 class="w3-margin w3-jumbo">Welcome ToDue</h1>
 
-  <p class="w3-xlarge">ToDue is the world's premier homework reminder site.</p>
+  <p id="thetitle" class="w3-xlarge">ToDue is the world's premier homework reminder site.</p>
   <!-- Google sign in script -->
+  <button id="signInButton">Sign In With Google</button>
+  <script>
+    document.getElementById("signInButton").addEventListener("mousedown", function(e){
+      auth2.grantOfflineAccess().then(signInCallback);
+    });
+
+    function signInCallback(authResult) {
+      if (authResult['code']) {
+        // Send the code to the server
+        $.ajax({
+          type: 'POST',
+          url: '/receiver',
+          // Always include an `X-Requested-With` header in every AJAX request,
+          // to protect against CSRF attacks.
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+          },
+          contentType: 'application/octet-stream; charset=utf-8',
+          success: function(result) {
+            // Handle or verify the server response.
+          },
+          processData: false,
+          data: JSON.stringify(authResult['code']),
+          success: function(d){
+            var button = document.getElementById("signInButton");
+            var new_element = document.createElement("p");
+            new_element.innerHTML = "Logged in as " + d;
+            document.getElementById("thetitle").appendChild(new_element);
+            button.parentNode.removeChild(button);
+          }
+        });
+      } else {
+        // There was an error.
+      }
+    }
+  </script>
+  <!--
   <div class="g-signin2" style="display:inline-block;" data-onsuccess="onSignIn" data-theme="dark"></div>
       <script>
         function onSignIn(googleUser) {
@@ -139,6 +187,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
           console.log("ID Token: " + id_token);
         };
       </script>
+    -->
 <br>
   <input type="file" accept="image/*" capture="camera" id="photo">
   <table id="res"></table>

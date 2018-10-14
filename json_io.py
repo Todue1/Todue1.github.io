@@ -1,5 +1,6 @@
 from PIL import Image
 from io import BytesIO
+from oauth2client import client
 
 from flask import Flask, render_template, request, redirect, Response
 import random, json, base64, time, os, io, sys
@@ -77,24 +78,36 @@ def output():
 def worker():
 	# read json + reply
     data = request.get_json(force=True)
-    if data[:14] == 'data:image/png': # Detects whether image if jpeg or png
-        arr = base64.b64decode(data[PNG_START:])
+
+    if data[:10] == 'data:image':
+        if data[:14] == 'data:image/png': # Detects whether image if jpeg or png
+            arr = base64.b64decode(data[PNG_START:])
+        else:
+            arr = base64.b64decode(data[JPEG_START:])
+
+        image = Image.open(BytesIO(arr))
+        rotated = image.rotate(-90)
+        print(image)
+        print(rotated)
+        filePath1 = os.path.join(os.path.dirname(__file__), 'data/image' + str(time.time()) + '.jpg') # Guarentees that each picture has a unique name
+        filePath2 = os.path.join(os.path.dirname(__file__),'data/image' + str(time.time()) + 'r.jpg')
+        image.save(filePath1, 'JPEG')
+        rotated.save(filePath2, 'JPEG')
+
+        data = detect_handwritten_ocr(filePath1) # Save it to send to the ocr function
+
+        print("___".join([i if i is not None else '' for i in data]))
+        return "___".join([i if i is not None else '' for i in data])
     else:
-        arr = base64.b64decode(data[JPEG_START:])
+        CLIENT_SECRET_FILE = 'C:/Users/Calvin/Downloads/client_secret_907446991357-o57v2h2eo5ciso51slrnud4e8up2i2jj.apps.googleusercontent.com.json'
+        credentials = client.credentials_from_clientsecrets_and_code(
+            CLIENT_SECRET_FILE,
+            ['https://www.googleapis.com/auth/drive.appdata', 'profile', 'email'],
+            data)
 
-    image = Image.open(BytesIO(arr))
-    rotated = image.rotate(-90)
-    print(image)
-    print(rotated)
-    filePath1 = os.path.join(os.path.dirname(__file__), 'data/image' + str(time.time()) + '.jpg') # Guarentees that each picture has a unique name
-    filePath2 = os.path.join(os.path.dirname(__file__),'data/image' + str(time.time()) + 'r.jpg')
-    image.save(filePath1, 'JPEG')
-    rotated.save(filePath2, 'JPEG')
+        print(credentials.id_token['email'])
+        return credentials.id_token['email']
 
-    data = detect_handwritten_ocr(filePath1) # Save it to send to the ocr function
-
-    print("___".join([i if i is not None else '' for i in data]))
-    return "___".join([i if i is not None else '' for i in data])
 
 if __name__ == '__main__':
 	# run!
